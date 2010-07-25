@@ -1,0 +1,5 @@
+ar_orderable
+============
+
+ar_orderable is a Rails plugin that contains several helpers that make ordering
+of large data listings easier.
