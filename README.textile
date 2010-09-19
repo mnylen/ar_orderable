@@ -27,10 +27,17 @@ Game.order(:"developer.name") # or Game.order("developer.name")
 </code></pre>
 
 To order in descending order:<pre><code>
-Game.order(:"name!desc")
+Game.order(:"name!desc") # or Game.order("name!desc")
 </code></pre>
 
 To order in case-sensitive manner:<pre><code>
 Game.order(:name, :case_sensitive => true)
 </code></pre>
 
+To order by multiple attributes:<pre><code>
+# Orders results first by developer name, then by game name
+Game.order([:"developer.name", :name])
+</code></pre>
+
+If trying to order by an attribute that is not orderable by, it will order by the default attribute:<pre><code>
+Game.order(:updated_at) # will order by name
