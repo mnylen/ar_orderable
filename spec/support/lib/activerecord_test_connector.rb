@@ -8,7 +8,7 @@ class ActiveRecordTestConnector
   cattr_accessor :able_to_connect
   cattr_accessor :connected
 
-  FIXTURES_PATH = File.join(File.dirname(__FILE__), '..', 'fixtures')
+  MODELS_PATH = File.join(File.dirname(__FILE__), '..', 'models')
 
   # Set our defaults
   self.connected = false
@@ -18,7 +18,7 @@ class ActiveRecordTestConnector
     unless self.connected || !self.able_to_connect
       setup_connection
       load_schema
-      add_load_path FIXTURES_PATH
+      add_load_path MODELS_PATH
       self.connected = true
     end
   end
@@ -54,7 +54,7 @@ class ActiveRecordTestConnector
   def self.load_schema
     ActiveRecord::Base.silence do
       ActiveRecord::Migration.verbose = false
-      load File.join(FIXTURES_PATH, 'schema.rb')
+      load File.join(File.dirname(__FILE__), '..', 'schema.rb')
     end
   end
 end
