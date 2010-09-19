@@ -1,0 +1,36 @@
+h2. Introduction
+
+ar_orderable is a small ActiveRecord addition that makes ordering of results easier and cleaner.
+
+Supported features are:
+
+* Ordering by an attribute in associated model (@belongs_to@ or @has_one@)
+* Defaults to case-insensitive ordering (@a < B@), optionally case-sensitive
+* Direction can be specified, defaults to ascending
+* Protects from SQL injection by checking the attribute to order by is in a predefined set of orderable attributes
+
+h2. Usage
+
+In model:<pre><code>
+class Game < ActiveRecord::Base
+  belongs_to :developer
+  orderable :by => [:name, :"developer.name"], :default => :name
+end
+</code></pre>
+
+In controller:<pre><code>
+Game.order(:name) # or Game.order("name")  
+</code></pre>
+
+To order by association's attribute:<pre><code>
+Game.order(:"developer.name") # or Game.order("developer.name")
+</code></pre>
+
+To order in descending order:<pre><code>
+Game.order(:"name!desc")
+</code></pre>
+
+To order in case-sensitive manner:<pre><code>
+Game.order(:name, :case_sensitive => true)
+</code></pre>
+
