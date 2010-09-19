@@ -35,8 +35,7 @@ Game.order(:name, :case_sensitive => true)
 </code></pre>
 
 To order by multiple attributes:<pre><code>
-# Orders results first by developer name, then by game name
-Game.order([:"developer.name", :name])
+Game.order([:"developer.name", :name]) # orders results first by developer name, then by game name
 </code></pre>
 
 If trying to order by an attribute that is not orderable by, it will order by the default attribute:<pre><code>
