@@ -14,6 +14,12 @@ Tested with ActiveRecord 2.3.5. Should work without hassle using any 2.3.x versi
 
 Supported & tested database adapters include PostgreSQL, MySQL and SQLite3. Might work with others.
 
+h2. Installation
+
+Using Bundler add this to your Gemfile:<pre><code>
+  gem "ar_orderable", :require => "orderable"
+</pre></code>
+
 h2. Usage
 
 In model:<pre><code>
