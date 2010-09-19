@@ -10,6 +10,8 @@ begin
     gemspec.authors = ["Mikko Nylén"]
     gemspec.add_dependency("activerecord", "~> 2.3.5")
   end
+  
+  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler not available. Install it with: gem install jeweler"
 end
