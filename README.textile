@@ -16,9 +16,13 @@ Supported & tested database adapters include PostgreSQL, MySQL and SQLite3. Migh
 
 h2. Installation
 
-Using Bundler add this to your Gemfile:<pre><code>
+Using Bundler with Rails 2.3.x add this to your Gemfile:<pre><code>
   gem "ar_orderable", :require => "orderable"
 </code></pre>
+
+As plugin:<pre><code>
+  ./script/plugin install git://github.com/mnylen/ar_orderable.git
+</pre></code>
 
 h2. Usage
 
