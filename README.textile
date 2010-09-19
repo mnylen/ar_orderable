@@ -22,7 +22,7 @@ Using Bundler with Rails 2.3.x add this to your Gemfile:<pre><code>
 
 As plugin:<pre><code>
   ./script/plugin install git://github.com/mnylen/ar_orderable.git
-</pre></code>
+</code></pre>
 
 h2. Usage
 
