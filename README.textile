@@ -5,6 +5,7 @@ ar_orderable is a small ActiveRecord addition that makes ordering of results eas
 Supported features are:
 
 * Ordering by an attribute in associated model (@belongs_to@ or @has_one@)
+* Ordering by multiple attributes
 * Defaults to case-insensitive ordering (@a < B@), optionally case-sensitive
 * Direction can be specified, defaults to ascending
 * Protects from SQL injection by checking the attribute to order by is in a predefined set of orderable attributes
