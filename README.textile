@@ -10,6 +10,10 @@ Supported features are:
 * Direction can be specified, defaults to ascending
 * Protects from SQL injection by checking the attribute to order by is in a predefined set of orderable attributes
 
+Tested with ActiveRecord 2.3.5. Should work without hassle using any 2.3.x version of ActiveRecord. Support for ActiveRecord 3.0.x is upcoming.
+
+Supported & tested database adapters include PostgreSQL, MySQL and SQLite3. Might work with others.
+
 h2. Usage
 
 In model:<pre><code>

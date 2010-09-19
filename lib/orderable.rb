@@ -86,6 +86,10 @@ module Orderable
           if cols_hash[attr_name].type == :string
             order_attribute = "LOWER(#{order_attribute})"
           end
+        else
+          if self.connection.adapter_name == "MySQL"
+            order_attribute = "BINARY #{order_attribute}"
+          end
         end
         
         order_attribute += " #{direction}"

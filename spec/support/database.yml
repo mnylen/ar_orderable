@@ -1,3 +1,11 @@
 sqlite3:
   adapter: sqlite3
   database: ":memory:"
+  
+postgresql:
+  adapter: postgresql
+  database: ar_orderable_test
+  
+mysql:
+  adapter: mysql
+  database: ar_orderable_test
