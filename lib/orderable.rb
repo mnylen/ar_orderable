@@ -16,14 +16,38 @@ module Orderable
     
     private
     
-      def do_order_by(attr_name, options, allowed_attrs, default_attr)
-        attr_name, direction = attr_name.to_s.split('!')
-        direction ||= "asc"
-        
-        unless allowed_attrs.include?(attr_name.to_sym)
-          attr_name = default_attr.to_s
+      def do_order_by(attr_names, options, allowed_attrs, default_attr)
+        attr_names = [attr_names] unless attr_names.kind_of?(Array)
+        find_options = {}
+                
+        attr_names.each do |attr_name|
+          attr_name, direction = attr_name.to_s.split('!')
+          direction ||= "asc"
+          
+          unless allowed_attrs.include?(attr_name.to_sym)
+            attr_name = default_attr.to_s
+          end
+          
+          find_options = merge_find_options(find_options, order_by_single_attribute(attr_name, direction, options))
         end
         
+        find_options
+      end
+      
+      
+      def merge_find_options(old_find_options, other_find_options)
+        joins = old_find_options[:joins].to_s + " " + other_find_options[:joins].to_s
+        order = unless old_find_options[:order]
+          other_find_options[:order]
+        else
+          old_find_options[:order] + ", " + other_find_options[:order]
+        end
+        
+        {:order => order, :joins => joins}
+      end
+      
+      
+      def order_by_single_attribute(attr_name, direction, options)
         attr_name, association_name = attr_name.split('.').reverse
         unless association_name.nil?
           association_order(association_name, attr_name, direction, options)
@@ -32,20 +56,6 @@ module Orderable
         end
       end
       
-      def sql_order_attribute(join_alias, reflection, attr_name, direction, options)
-        order_attribute = join_alias ? "#{join_alias}.#{attr_name}" : "#{attr_name}"
-        
-        unless options[:case_sensitive]
-          # Certain database adapters fail if we try to use LOWER() on non-string values
-          cols_hash = reflection ? reflection.klass.columns_hash : self.columns_hash
-          if cols_hash[attr_name].type == :string
-            order_attribute = "LOWER(#{order_attribute})"
-          end
-        end
-        
-        order_attribute += " #{direction}"
-        order_attribute
-      end
       
       def association_order(association_name, attr_name, direction, options)
         reflection = self.reflect_on_association(association_name.to_sym)
@@ -64,6 +74,22 @@ module Orderable
         order = sql_order_attribute(join_alias, reflection, attr_name, direction, options)
         
         {:joins => joins, :order => order}
+      end
+      
+      
+      def sql_order_attribute(join_alias, reflection, attr_name, direction, options)
+        order_attribute = join_alias ? "#{join_alias}.#{attr_name}" : "#{self.quoted_table_name}.#{attr_name}"
+        
+        unless options[:case_sensitive]
+          # Certain database adapters fail if we try to use LOWER() on non-string values
+          cols_hash = reflection ? reflection.klass.columns_hash : self.columns_hash
+          if cols_hash[attr_name].type == :string
+            order_attribute = "LOWER(#{order_attribute})"
+          end
+        end
+        
+        order_attribute += " #{direction}"
+        order_attribute
       end
   end
 end
