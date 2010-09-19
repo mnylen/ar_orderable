@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
      "README.textile",
      "Rakefile",
      "VERSION",
+     "ar_orderable.gemspec",
      "init.rb",
      "lib/orderable.rb",
      "spec/order_belongs_to_association_spec.rb",
