@@ -18,7 +18,7 @@ h2. Installation
 
 Using Bundler add this to your Gemfile:<pre><code>
   gem "ar_orderable", :require => "orderable"
-</pre></code>
+</code></pre>
 
 h2. Usage
 
